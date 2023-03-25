@@ -8,6 +8,16 @@
 import Foundation
 
 class Webservice {
+    
+    func downloadCurrenciesAsync(url: URL) async throws -> [CryptoCurrency] {
+        let (data, _) = try await URLSession.shared.data(from: url)
+        
+        let currencies =  try? JSONDecoder().decode([CryptoCurrency].self, from: data)
+        
+        return currencies ?? []
+    }
+    
+    /*
     func downloadCurrencies(url: URL,
                             completion: @escaping(Result<[CryptoCurrency]?, DownloaderError>)-> Void) {
         
@@ -28,7 +38,7 @@ class Webservice {
             completion(.success(currencies))
             
         }.resume()
-    }
+    } */
 }
 
 enum DownloaderError : Error {
