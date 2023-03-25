@@ -27,7 +27,6 @@ class CryptoListViewModel : ObservableObject {
                             self.cryptoList = cryptos.map(CryptoViewModel.init)
                         }
                     }
-            
             }
         }
     }
