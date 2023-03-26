@@ -13,6 +13,7 @@ class CryptoListViewModel : ObservableObject {
     
     let webservice = Webservice()
     
+    /*
     func downloadCryptosAsync(url : URL) async {
         do {
             let cryptos = try await webservice.downloadCurrenciesAsync(url: url)
@@ -23,6 +24,7 @@ class CryptoListViewModel : ObservableObject {
             print(error)
         }     
     }
+    */
     
     /*
     

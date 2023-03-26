@@ -9,15 +9,34 @@ import Foundation
 
 class Webservice {
     
+    func downloadCurrenciesContinuation(url: URL) async throws -> [CryptoCurrency] {
+        
+        try await withCheckedThrowingContinuation ({ continuation in
+            
+            downloadCurrencies(url: url) { result in
+                switch result {
+                case .success(let cryptos):
+                    continuation.resume(returning: cryptos ?? [])
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        })
+    }
+    
+    
+    
+    
+    /*   2  async/await
     func downloadCurrenciesAsync(url: URL) async throws -> [CryptoCurrency] {
         let (data, _) = try await URLSession.shared.data(from: url)
         
         let currencies =  try? JSONDecoder().decode([CryptoCurrency].self, from: data)
         
         return currencies ?? []
-    }
+    }*/
     
-    /*
+     // 1  normal
     func downloadCurrencies(url: URL,
                             completion: @escaping(Result<[CryptoCurrency]?, DownloaderError>)-> Void) {
         
@@ -38,7 +57,7 @@ class Webservice {
             completion(.success(currencies))
             
         }.resume()
-    } */
+    }
 }
 
 enum DownloaderError : Error {
